@@ -1,0 +1,10 @@
+package com.swamy.microservice2.basics.config;
+
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AppConfig {
+	
+	pub
+
+}

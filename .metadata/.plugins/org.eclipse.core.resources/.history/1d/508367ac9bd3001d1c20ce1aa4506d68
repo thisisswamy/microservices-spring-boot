@@ -1,0 +1,10 @@
+package com.swamy.microservice.basics.utilities;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserUtilities {
+	
+	
+
+}

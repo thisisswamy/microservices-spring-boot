@@ -1,0 +1,14 @@
+package com.swamy.microservice2.basics.service;
+
+
+
+import org.springframework.stereotype.Service;
+
+import com.swamy.microservice2.basics.models.ReviewResponse;
+
+@Service
+public interface ReviewService {
+
+	String writeReview(ReviewResponse response);
+
+}

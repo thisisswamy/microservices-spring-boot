@@ -1,0 +1,5 @@
+package com.swamy.microservice.basics.configuration;
+
+public class AppConfigurations {
+
+}

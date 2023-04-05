@@ -1,0 +1,4 @@
+spring.data.mongodb.uri=mongodb+srv://Swamy:swamy123@cluster0.s6fkj.mongodb.net/?retryWrites=true&w=majority
+spring.data.mongodb.database=movie-review-app
+server.servlet.context-path=/api/v1/reviews
+spring.application.name="moview-review-ms

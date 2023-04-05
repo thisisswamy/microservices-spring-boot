@@ -1,0 +1,76 @@
+package com.swamy.microservice.basics.services;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.swamy.microservice.basics.entity.User;
+import com.swamy.microservice.basics.feinclients.ReviewServiceFeinClient;
+import com.swamy.microservice.basics.models.ReviewResponse;
+import com.swamy.microservice.basics.models.UserRequest;
+import com.swamy.microservice.basics.models.UserResponse;
+import com.swamy.microservice.basics.models.UserWithReviews;
+import com.swamy.microservice.basics.repos.UserRepo;
+import com.swamy.microservice.basics.utilities.UserUtilities;
+
+@Service
+public class UserCommonServiceImpl implements UserCommonService {
+	
+	@Autowired
+	private UserRepo userRepo;
+	@Autowired
+	private UserUtilities utility;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Autowired
+	private ReviewServiceFeinClient feinClient;
+
+	@Override
+	public String registerUser(UserRequest request) {
+		boolean existedUser = utility.isUserPresent(request.getEmailAddress());
+		if(existedUser) {
+			return "User already present! please login or use other email";
+		}else {
+			User user= new User();
+			user.setUserName(request.getUserName());
+			user.setEmailAddress(request.getEmailAddress());
+			user.setPassword(request.getPassword());
+			user.setConfirmPassword(request.getConfirmPassword());
+			userRepo.save(user);
+			return  "User registered successfully..";
+		}
+		
+	}
+
+	@Override
+	public List<UserResponse> getAllUsersList() {
+		List<User> usersList = userRepo.findAll();
+		List<UserResponse> users =new ArrayList<>();
+		usersList.stream().forEach(t->{
+			users.add(new UserResponse(t.getUserName(), t.getEmailAddress()));
+		});
+		return users;
+	}
+
+	@Override
+	public UserWithReviews getUserWithReviews(String userName) {
+		List<ReviewResponse> allReviewsByUserName = feinClient.getAllReviewsByUserName(userName);
+		UserWithReviews user =new UserWithReviews();
+		user.setMovieResponse(allReviewsByUserName);
+		return null;
+	}
+
+	@Override
+	public UserResponse getUser(String email) {
+		User user = userRepo.findByEmailAddress(email);
+		return null;
+	}
+	
+
+}

@@ -1,0 +1,20 @@
+package com.swamy.microservice2.basics.docs;
+
+import java.util.List;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(value = "reviews")
+public class Review {
+	
+	@Id
+	private Long id;
+	private String userId;
+	private String movieName;
+	private double rating;
+	private String verdict;
+	private List<String> castCrew;
+	
+
+}

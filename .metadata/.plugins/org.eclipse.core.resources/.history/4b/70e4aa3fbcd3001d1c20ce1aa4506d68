@@ -1,0 +1,10 @@
+package com.swamy.microservice.basics.models;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserWithReviews {
+	private UserResponse userResponse;
+	private MoviewResponse movieResponse;
+
+}

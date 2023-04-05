@@ -1,0 +1,5 @@
+package com.swamy.microservice2.basics.service;
+
+public interface MovieService {
+
+}

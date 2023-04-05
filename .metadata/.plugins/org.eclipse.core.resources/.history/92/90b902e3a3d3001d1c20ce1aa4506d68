@@ -1,0 +1,8 @@
+package com.swamy.microservice2.basics.docs;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(value = "")
+public class Review {
+
+}

@@ -1,0 +1,14 @@
+package com.swamy.microservice2.basics.docs;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(value = "reviews")
+public class Review {
+	
+	private Long id;
+	private String userId;
+	private String movieName;
+	private double rating;
+	p
+
+}

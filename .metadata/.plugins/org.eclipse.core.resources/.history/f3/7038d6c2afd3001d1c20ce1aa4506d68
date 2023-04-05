@@ -1,0 +1,14 @@
+package com.swamy.microservice2.basics.models;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserInfo {
+	private String userName;
+
+	public UserInfo() {
+		super();
+	}
+	
+
+}

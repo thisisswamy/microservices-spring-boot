@@ -1,0 +1,9 @@
+package com.swamy.microservice.basics.entity;
+
+import jakarta.persistence.Entity;
+
+@Entity
+@Table()
+public class User {
+
+}

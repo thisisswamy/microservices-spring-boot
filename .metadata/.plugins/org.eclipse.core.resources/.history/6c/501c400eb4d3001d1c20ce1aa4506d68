@@ -1,0 +1,5 @@
+package com.swamy.microservice2.basics.config;
+
+public class AppConfig {
+
+}

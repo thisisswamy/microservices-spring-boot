@@ -1,0 +1,10 @@
+package com.swamy.microservice2.basics.utities;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class ReviewUtility {
+	
+	public is isReviewWritten()
+
+}

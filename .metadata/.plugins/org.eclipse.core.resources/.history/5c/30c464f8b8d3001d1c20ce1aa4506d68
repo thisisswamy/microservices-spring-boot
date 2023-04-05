@@ -1,0 +1,8 @@
+package com.swamy.microservice.basics.feinclients;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(value = "m")
+public class ReviewServiceFeinClient {
+
+}

@@ -1,0 +1,8 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="java.lang.Enum"><rhs name\="jakarta.persistence.GenerationType"/></lhs><lhs name\="java.lang.constant.Constable"><rhs name\="jakarta.persistence.GenerationType"/></lhs><lhs name\="org.modelmapper.ModelMapper"><rhs name\="org.modelmapper.ModelMapper"/></lhs><lhs name\="com.swamy.microservice.basics.models.UserResponse"><rhs name\="com.swamy.microservice.basics.models.UserResponse"/></lhs><lhs name\="java.util.Collection"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="java.lang.Iterable"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="java.util.List"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="com.swamy.microservice2.basics.models.ReviewResponse"><rhs name\="com.swamy.microservice2.basics.models.ReviewResponse"/></lhs><lhs name\="com.swamy.microservice.basics.models.UserWithReviews"><rhs name\="com.swamy.microservice.basics.models.UserWithReviews"/></lhs></history>
+content_assist_number_of_computers=15
+eclipse.preferences.version=1
+org.eclipse.jdt.ui.formatterprofiles.version=22
+spelling_locale_initialized=true
+typefilter_migrated_2=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

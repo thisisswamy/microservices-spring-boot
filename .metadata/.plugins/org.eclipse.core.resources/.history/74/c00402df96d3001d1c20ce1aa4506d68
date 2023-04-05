@@ -1,0 +1,12 @@
+package com.swamy.microservice.basics.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "app_users")
+public class User {
+	
+	private int idl
+
+}
