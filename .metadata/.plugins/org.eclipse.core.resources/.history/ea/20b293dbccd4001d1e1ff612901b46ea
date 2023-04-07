@@ -1,0 +1,30 @@
+package com.swamy.microservice.basics.configuration;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.web.SecurityFilterChain;
+
+
+@EnableWebSecurity
+@Configuration
+public class MySecurityConfig{
+	
+	private static final String[] SECURE_URLS= {"/all"};
+	private static final String[] PUBLIC_URLS= {"/register", "/{userName}"};
+	
+	@Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		 http
+         .authorizeHttpRequests((authz) -> authz.anyRequest().authenticated();
+         )
+         
+         
+        return http.build();
+    }
+	
+
+}

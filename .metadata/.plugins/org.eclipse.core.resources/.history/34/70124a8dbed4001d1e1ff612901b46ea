@@ -1,0 +1,11 @@
+package com.swamy.microservice2.basics.models;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class ErrorMessage {
+	
+	private String message;
+	private  long ;
+
+}

@@ -6,6 +6,7 @@ import java.util.function.Function;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.swamy.microservice.basics.entity.User;
@@ -30,6 +31,10 @@ public class UserCommonServiceImpl implements UserCommonService {
 	
 	@Autowired
 	private ReviewServiceFeinClient feinClient;
+	
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
 	public String registerUser(UserRequest request) {
@@ -40,8 +45,8 @@ public class UserCommonServiceImpl implements UserCommonService {
 			User user= new User();
 			user.setUserName(request.getUserName());
 			user.setEmailAddress(request.getEmailAddress());
-			user.setPassword(request.getPassword());
-			user.setConfirmPassword(request.getConfirmPassword());
+			user.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
+			user.setConfirmPassword(bCryptPasswordEncoder.encode(request.getConfirmPassword()));
 			userRepo.save(user);
 			return  "User registered successfully..";
 		}

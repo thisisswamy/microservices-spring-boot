@@ -16,7 +16,13 @@ public class ReviewUtility {
 	
 	public boolean isReviewWritten(String key) {
 		Review review=repo.findByKey(key);
+		System.out.println("updated>>>>> "+review);
 		return review != null ? true : false;
+	}
+	
+	public Review getReviewObject(String key) {
+		Review review=repo.findByKey(key);
+		return review;
 	}
 
 }

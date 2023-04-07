@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.swamy.microservice2.basics.docs.Review;
+import com.swamy.microservice2.basics.models.ErrorMessage;
 import com.swamy.microservice2.basics.models.ReviewResponse;
 import com.swamy.microservice2.basics.models.UserInfo;
 import com.swamy.microservice2.basics.repos.ReviewRepo;
@@ -64,6 +65,47 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<ReviewResponse> getAllReviewsByUserName(String userName) {
 		List<ReviewResponse> reviews = repo.findByUserName(userName);
 		return reviews;
+	}
+
+	@Override
+	public List<ReviewResponse> getAllReviews() {
+		List<Review> reviewList = repo.findAll();
+		List<ReviewResponse> list=new ArrayList<>();
+		reviewList.stream().forEach(t->{
+			ReviewResponse map = modelMapper.map(t, ReviewResponse.class);
+			list.add(map);
+		});
+		return list;
+	}
+
+	@Override
+	public String deleteReviewByKey(String key) {
+		boolean isPresent = utility.isReviewWritten(key);
+		if(isPresent) {
+			repo.deleteByKey(key);
+			return "successfully deleted";
+		}else {
+			return "Review is Not present please enter correct key";
+		}
+	}
+
+	@Override
+	public ErrorMessage updateReview(ReviewResponse res) {
+		Review isWritten = utility.getReviewObject(res.getKey());
+		if(isWritten!=null) {
+			isWritten.setMovieName(res.getMovieName());
+			isWritten.setCastCrew(res.getCastCrew());
+			isWritten.setRating(res.getRating());
+			isWritten.setUserName(res.getUserName());
+			isWritten.setVerdict(res.getVerdict());
+			isWritten.setKey(res.getKey());		
+			
+//			Review map = modelMapper.map(res,Review.class);
+			repo.save(isWritten);
+			return new ErrorMessage("Review Updated Successfully",200);
+		}
+		
+		return new ErrorMessage("Please provide valide data",401);
 	}
 
 }

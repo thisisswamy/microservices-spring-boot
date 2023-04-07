@@ -1,0 +1,8 @@
+package com.swamy.microservice.basics.JWT;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class JwtToken {
+
+}

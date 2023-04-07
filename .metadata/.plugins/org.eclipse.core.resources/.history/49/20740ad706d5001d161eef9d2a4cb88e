@@ -1,0 +1,20 @@
+package com.swamy.microservice.basics.configuration;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.swamy.microservice.basics.repos.UserRepo;
+
+public class CustomUserDetailsService implements UserDetailsService {
+	
+	private UserRepo userRepo;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		userRepo
+		
+		return null;
+	}
+
+}

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-    <typeInfo handle="=user-service/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.swamy.microservice.basics.services{UserCommonService.java[UserCommonService" modifiers="513" timestamp="1680690614058"/>
+    <typeInfo handle="=user-service/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.swamy.microservice.basics.services{UserCommonService.java[UserCommonService" modifiers="513" timestamp="1680706561323"/>
+    <typeInfo handle="=discovery-service/C:\/Users\/SWAMY\/.m2\/repository\/org\/springframework\/boot\/spring-boot-autoconfigure\/3.0.5\/spring-boot-autoconfigure-3.0.5.jar=/maven.pomderived=/true=/=/maven.groupId=/org.springframework.boot=/=/maven.artifactId=/spring-boot-autoconfigure=/=/maven.version=/3.0.5=/=/maven.scope=/compile=/=/maven.pomderived=/true=/&lt;org.springframework.boot.autoconfigure.security.oauth2.resource.reactive(ReactiveOAuth2ResourceServerJwkConfiguration$WebSecurityConfiguration.class[WebSecurityConfiguration" modifiers="8" timestamp="1680684185622"/>
 </typeInfoHistroy>

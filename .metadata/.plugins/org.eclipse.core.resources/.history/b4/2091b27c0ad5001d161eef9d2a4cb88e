@@ -1,0 +1,6 @@
+package com.swamy.microservice.basics.models;
+
+@Com
+public class JwtAuthRequest {
+
+}

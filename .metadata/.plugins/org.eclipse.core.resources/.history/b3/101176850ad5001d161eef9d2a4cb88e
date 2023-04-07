@@ -1,0 +1,9 @@
+package com.swamy.microservice.basics.models;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class JwtAuthRequest {
+	private String user
+
+}

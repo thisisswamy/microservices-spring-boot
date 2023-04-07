@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(value = "reviews")
 public class Review {
 	
+	
 	@Id
 	private String id;
 	private String userName;
@@ -62,7 +63,11 @@ public class Review {
 		super();
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Review [id=" + id + ", userName=" + userName + ", movieName=" + movieName + ", rating=" + rating
+				+ ", verdict=" + verdict + ", castCrew=" + castCrew + ", key=" + key + "]";
+	}
 	
 
 }
