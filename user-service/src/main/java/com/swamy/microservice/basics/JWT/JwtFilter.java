@@ -2,6 +2,7 @@ package com.swamy.microservice.basics.JWT;
 
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.swamy.microservice.basics.configuration.CustomUserDetailsService;
+import com.swamy.microservice.basics.entity.User;
+import com.swamy.microservice.basics.models.UserResponse;
+import com.swamy.microservice.basics.repos.UserRepo;
 
 
 @Component
@@ -20,6 +24,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtUtil jwtUtil;
+    
+    @Autowired
+    private UserRepo userRepo;
 
    
 	@Override
@@ -28,7 +35,7 @@ public class JwtFilter extends OncePerRequestFilter {
 			throws jakarta.servlet.ServletException, IOException {
 
 		final String authorizationHeader = request.getHeader("Authorization");
-       
+       System.err.println("user ms filter token>>> "+authorizationHeader);
         String username = null;
         String jwt = null;
 
@@ -40,14 +47,14 @@ public class JwtFilter extends OncePerRequestFilter {
 
             UserDetails userDetails = this.customUserService.loadUserByUsername(username);
             if (jwtUtil.validateToken(jwt, userDetails)) {
-
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 
-                		new UsernamePasswordAuthenticationToken(userDetails.getAuthorities(), userDetails.getPassword(), userDetails.getAuthorities());
+                		new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 
             }
+  
         }
         filterChain.doFilter(request, response);
 		

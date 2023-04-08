@@ -1,0 +1,12 @@
+package com.swamy.microservice2.basics.auth;
+
+import org.modelmapper.internal.bytebuddy.dynamic.scaffold.FieldRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+public class WebMvcFiters implements WebMvcConfigurer{
+
+	@Override
+    public void addFilters(FieldRegistry registry) {
+        registry.addFilter();
+    }
+}

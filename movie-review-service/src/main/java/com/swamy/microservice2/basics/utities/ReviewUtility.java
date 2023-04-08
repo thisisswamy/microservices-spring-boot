@@ -25,4 +25,9 @@ public class ReviewUtility {
 		return review;
 	}
 
+	public String getError() {
+		return "Something went wrong";
+		
+	}
+
 }

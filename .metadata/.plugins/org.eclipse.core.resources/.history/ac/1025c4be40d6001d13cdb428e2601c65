@@ -1,0 +1,5 @@
+package com.swamy.microservice2.basics.auth;
+
+public class UserAuthFeinClient {
+
+}

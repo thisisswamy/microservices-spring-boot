@@ -1,0 +1,11 @@
+package com.swamy.microservice2.basics.auth;
+
+import org.springframework.web.servlet.HandlerInterceptor;
+
+public class IntercepterHandler implements HandlerInterceptor {
+
+	@Override
+	public boolean preHandle() {
+		return false;
+	}
+}

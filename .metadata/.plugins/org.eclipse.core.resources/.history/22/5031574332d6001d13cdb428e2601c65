@@ -1,0 +1,7 @@
+package com.swamy.microservice.basics.exceptions;
+
+import org.springframework.security.web.AuthenticationEntryPoint;
+
+public class JwtEntryPointException implements AuthenticationEntryPoint {
+
+}
