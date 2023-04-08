@@ -1,0 +1,11 @@
+package com.swamy.microservice2.basics.auth;
+
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+public class WebMvcFiters implements WebMvcConfigurer{
+
+	@Override
+    public void addFilters(FilterRegistry registry) {
+        registry.addFilter();
+    }
+}

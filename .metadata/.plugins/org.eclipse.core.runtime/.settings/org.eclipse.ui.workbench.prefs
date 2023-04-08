@@ -34,6 +34,7 @@ org.eclipse.egit.ui.CommitMessageFont=1|Fira Code Medium|11.0|0|WINDOWS|1|-22|0|
 org.eclipse.egit.ui.DiffHeadlineFont=1|Fira Code Medium|11.0|0|WINDOWS|1|-22|0|0|0|500|0|0|0|0|3|2|1|49|Fira Code Medium;
 org.eclipse.jdt.internal.ui.compare.JavaMergeViewer=1|Fira Code Medium|11.0|0|WINDOWS|1|-22|0|0|0|500|0|0|0|0|3|2|1|49|Fira Code Medium;
 org.eclipse.jdt.internal.ui.compare.PropertiesFileMergeViewer=1|Fira Code Medium|11.0|0|WINDOWS|1|-22|0|0|0|500|0|0|0|0|3|2|1|49|Fira Code Medium;
+org.eclipse.jdt.ui.ColoredLabels.match_highlight=206,92,0
 org.eclipse.jdt.ui.PropertiesFileEditor.textfont=1|Fira Code Medium|11.0|0|WINDOWS|1|-22|0|0|0|500|0|0|0|0|3|2|1|49|Fira Code Medium;
 org.eclipse.jdt.ui.editors.textfont=1|Fira Code Medium|11.0|0|WINDOWS|1|-22|0|0|0|500|0|0|0|0|3|2|1|49|Fira Code Medium;
 org.eclipse.jface.textfont=1|Fira Code Medium|11.0|0|WINDOWS|1|-22|0|0|0|500|0|0|0|0|3|2|1|49|Fira Code Medium;

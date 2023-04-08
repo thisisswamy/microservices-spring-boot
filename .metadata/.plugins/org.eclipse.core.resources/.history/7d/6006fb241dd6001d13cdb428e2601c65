@@ -1,0 +1,65 @@
+package com.swamy.microservice.basics.models;
+
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class AuthenticationFailedError implements AuthenticationFailureHandler {
+	private ObjectMapper objectMapper = new ObjectMapper();
+	private String message;
+	private String code;
+	private Date timeStamp;
+
+	public AuthenticationFailedError() {
+		super();
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public Date getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(Date timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+	@Override
+	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException exception) throws IOException, ServletException {
+		response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		Map<String, Object> data = new HashMap<>();
+		data.put("timestamp", Calendar.getInstance().getTime());
+		data.put("exception", exception.getMessage());
+
+		response.getOutputStream().println(objectMapper.writeValueAsString(data));
+
+	}
+
+}

@@ -1,0 +1,8 @@
+package com.swamy.microservice2.basics.auth;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(name = "")
+public class UserAuthFeinClient {
+
+}
