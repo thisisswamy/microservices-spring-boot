@@ -11,13 +11,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,6 +29,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.swamy.microservice.basics.JWT.JwtFilter;
 import com.swamy.microservice.basics.exceptions.JwtEntryPointException;
@@ -68,14 +77,18 @@ public class MySecurityConfig {
 	
 	 @Bean
 	 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	        http.authorizeHttpRequests((authz) -> authz.anyRequest().authenticated())
-	        .csrf().disable().cors().disable()
+	        http.csrf().disable().cors().and()
+	        
+	        .authorizeHttpRequests((authz) -> authz.anyRequest().authenticated())
+	        
 	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	        .and()
 	        .exceptionHandling().authenticationEntryPoint(jwtEntryPointException);
 	        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);        
 	        return http.build();
 	 }
+	 
+	 
 	 
 	 @Bean
 	 public AuthenticationProvider manager() {
@@ -90,6 +103,20 @@ public class MySecurityConfig {
 	 public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception { 
 		 return configuration.getAuthenticationManager();
 	 }
+	 
+//	 @Bean
+//	 CorsConfigurationSource corsConfigurationSource() {
+//	 	CorsConfiguration configuration = new CorsConfiguration();
+//	 	configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+//	 	configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
+//	 	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//	 	source.registerCorsConfiguration("/**", configuration);
+//	 	return source;
+//	 }
+	
+	 
+	 
+
 	 
 	
 }

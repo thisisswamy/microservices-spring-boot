@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.swamy.microservice.basics.entity.User;
 import com.swamy.microservice.basics.feinclients.ReviewServiceFeinClient;
+import com.swamy.microservice.basics.models.CustomHttpResponse;
 import com.swamy.microservice.basics.models.ReviewResponse;
 import com.swamy.microservice.basics.models.UserRequest;
 import com.swamy.microservice.basics.models.UserResponse;
@@ -37,10 +38,10 @@ public class UserCommonServiceImpl implements UserCommonService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
-	public String registerUser(UserRequest request) {
+	public CustomHttpResponse registerUser(UserRequest request) {
 		boolean existedUser = utility.isUserPresent(request.getEmailAddress());
 		if(existedUser) {
-			return "User already present! please login or use other email";
+			return new CustomHttpResponse("User already exists please use different email or login.");
 		}else {
 			User user= new User();
 			user.setUserName(request.getUserName());
@@ -48,7 +49,7 @@ public class UserCommonServiceImpl implements UserCommonService {
 			user.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
 			user.setConfirmPassword(bCryptPasswordEncoder.encode(request.getConfirmPassword()));
 			userRepo.save(user);
-			return  "User registered successfully..";
+			return new CustomHttpResponse( "User registered successfully..");
 		}
 		
 	}
