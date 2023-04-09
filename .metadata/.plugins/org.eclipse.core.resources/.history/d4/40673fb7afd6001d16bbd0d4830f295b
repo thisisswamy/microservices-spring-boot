@@ -1,6 +1,0 @@
-package com.swamy.microservice.basics.controllers;
-
-@RestC
-public class PasswordSettings {
-
-}

@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,7 @@ import com.swamy.microservice.basics.models.UserResponse;
 import com.swamy.microservice.basics.repos.UserRepo;
 
 @RestController
+@CrossOrigin(allowedHeaders = "*",origins = "http://localhost:4200")
 public class LoginController {
 
 	@Autowired
@@ -51,14 +53,13 @@ public class LoginController {
 					auth.getEmail(), auth.getPassword(), new ArrayList<>());
 			authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 		} catch (BadCredentialsException e) {
-			throw new Exception("invalid username..");
+			throw new Exception("invalid username/Email..");
 		}
 		UserDetails userDetails = customUserDetailsService.loadUserByUsername(auth.getEmail());
 		String jwt = jwtUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JwtToken(jwt));
 	}
-	
-	
+
 	@GetMapping("/validateUser")
 	public ResponseEntity<UserResponse> validateUserCreds(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
