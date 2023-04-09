@@ -1,0 +1,6 @@
+package com.swamy.microservice.basics.controllers;
+
+@
+public class PasswordSettings {
+
+}

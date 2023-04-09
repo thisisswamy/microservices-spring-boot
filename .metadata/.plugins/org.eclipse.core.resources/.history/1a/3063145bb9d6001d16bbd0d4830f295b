@@ -1,0 +1,59 @@
+package com.swamy.microservice.basics.controllers;
+
+import java.net.http.HttpRequest;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import org.apache.http.HttpResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.swamy.microservice.basics.models.ForgotPassword;
+import com.swamy.microservice.basics.models.UserResponse;
+import com.swamy.microservice.basics.repos.UserRepo;
+import com.swamy.microservice.basics.utilities.UserUtilities;
+
+@RestController
+public class PasswordSettings {
+	
+	@Autowired
+	private UserRepo userRepo;
+	
+	@Autowired
+	private UserUtilities userUtilities;
+	private ObjectMapper objectMapper = new ObjectMapper();
+	
+	@PostMapping("/password/forgot-password")
+	public ResponseEntity<?> forgotPassword(@RequestBody ForgotPassword forgotPassword){
+		System.err.println("email>>> "+forgotPassword);
+		UserResponse userByMailID = userUtilities.getUserByMailID(forgotPassword.getEmail());
+		if(userByMailID!=null) {
+			return ResponseEntity.ok(userByMailID);
+		}
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+	
+//		return ResponseEntity.noContent().build();
+	}
+
+	
+	@ExceptionHandler(ResponseStatusException.class)
+	public String noDataFoundException(HttpResponse response) {
+		response.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+		Map<String, Object> data = new HashMap<>();
+		LocalDateTime current = LocalDateTime.now();
+		data.put("timestamp", current.toString());
+		data.put("exception", "No Data Found");
+		response.getOutputStream().println(objectMapper.writeValueAsString(data));
+	return"no data";
+	}
+}

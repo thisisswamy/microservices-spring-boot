@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.swamy.microservice.basics.entity.User;
+import com.swamy.microservice.basics.models.UserResponse;
 import com.swamy.microservice.basics.repos.UserRepo;
 
 @Component
@@ -14,8 +15,15 @@ public class UserUtilities {
 	
 	public boolean isUserPresent(String email) {
 		User user = userRepo.findByEmailAddress(email);
-		System.out.println(user);
 		return  user != null ? true : false;
+	}
+	
+	public UserResponse getUserByMailID(String email) {
+		User user = userRepo.findByEmailAddress(email);
+		if(user!=null) {
+			return  new UserResponse(user.getUserName(),user.getEmailAddress());
+		}
+		return null;	
 	}
 	
 	

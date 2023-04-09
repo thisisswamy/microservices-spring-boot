@@ -81,6 +81,19 @@ public class UserCommonServiceImpl implements UserCommonService {
 		return userWithReview;
 	}
 
+	@Override
+	public boolean resetPassword(UserRequest userRequest) {
+		User user = userRepo.findByEmailAddress(userRequest.getEmailAddress());
+		user.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
+		user.setPassword(bCryptPasswordEncoder.encode(userRequest.getConfirmPassword()));
+		User updatedUser = userRepo.save(user);
+		System.out.println(updatedUser);
+		if(updatedUser!=null) {
+			return true;
+		}
+		return false;
+	}
+
 	
 	
 
