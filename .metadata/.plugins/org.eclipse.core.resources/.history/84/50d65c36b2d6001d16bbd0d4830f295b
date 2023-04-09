@@ -1,0 +1,15 @@
+package com.swamy.microservice.basics.models;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class ForgotPassword {
+	
+	private String email;
+
+	public ForgotPassword() {
+		super();
+	}
+	
+
+}

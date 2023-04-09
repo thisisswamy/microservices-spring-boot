@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.util.UrlPathHelper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,11 +32,11 @@ public class JwtEntryPointException implements AuthenticationEntryPoint {
 
 		response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		Map<String, Object> data = new HashMap<>();
+		String path = new UrlPathHelper().getPathWithinApplication(request);
 		LocalDateTime current = LocalDateTime.now();
-		
-		
 		data.put("timestamp", current.toString());
 		data.put("exception", authException.getMessage());
+		data.put("path", path);
 		response.getOutputStream().println(objectMapper.writeValueAsString(data));
 	}
 

@@ -1,0 +1,5 @@
+package com.swamy.microservice.basics.exceptions;
+
+public class GlobalExceptionHandler {
+
+}

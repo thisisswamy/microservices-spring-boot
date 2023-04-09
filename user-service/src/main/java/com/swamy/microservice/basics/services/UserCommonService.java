@@ -14,5 +14,7 @@ public interface UserCommonService {
 
 	UserWithReviews getUserWithReviews(String userName);
 
+	boolean resetPassword(UserRequest userRequest);
+
 
 }
