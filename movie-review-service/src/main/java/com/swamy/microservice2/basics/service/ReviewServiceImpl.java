@@ -30,7 +30,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public String writeReview(ReviewResponse req) {
-		boolean isWritten = utility.isReviewWritten(req.getKey());
+		boolean isWritten = utility.getReviewByMovieName(req.getMovieName());
 		if(isWritten) {
 			return "ALready written please to edit or write for another moview";
 		}else {
@@ -40,6 +40,7 @@ public class ReviewServiceImpl implements ReviewService {
 			review.setVerdict(req.getVerdict());
 			review.setUserName(req.getUserName());
 			review.setCastCrew(req.getCastCrew());
+			review.setLanguage(req.getLanguage());
 			review.setKey(req.getKey());
 			repo.save(review);
 			System.out.println(review);
@@ -98,6 +99,7 @@ public class ReviewServiceImpl implements ReviewService {
 			isWritten.setRating(res.getRating());
 			isWritten.setUserName(res.getUserName());
 			isWritten.setVerdict(res.getVerdict());
+			isWritten.setLanguage(res.getLanguage());
 			isWritten.setKey(res.getKey());		
 			
 //			Review map = modelMapper.map(res,Review.class);
@@ -105,7 +107,7 @@ public class ReviewServiceImpl implements ReviewService {
 			return new ErrorMessage("Review Updated Successfully",200);
 		}
 		
-		return new ErrorMessage("Please provide valide data",401);
+		return new ErrorMessage("Please provide valide data",404);
 	}
 
 }

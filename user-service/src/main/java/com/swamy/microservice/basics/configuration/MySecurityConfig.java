@@ -50,7 +50,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Configuration
 public class MySecurityConfig {
 
-	private static final String[] PUBLIC_URLS = {"/register", "/auth/login"};
+	private static final String[] PUBLIC_URLS = {"/register", "/auth/login","/password/forgot-password","password/reset"};
 	
 	@Autowired
 	private UserRepo userRepo;
