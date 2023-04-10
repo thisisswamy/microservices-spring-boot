@@ -18,6 +18,9 @@ public interface ReviewRepo extends MongoRepository<Review, String> {
 	
 	@Query(value = "{ key : ?0 }",delete=true)
 	void deleteByKey(String key);
+
+	@Query(value = "{ movieName : ?0 }")
+	Review findyMovieName(String movieName);
 	
 //	@Query(value = "{}",delete = true)
 //	public String deleteAllDocuments();

@@ -65,6 +65,7 @@ public class LoginController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = userRepo.findByEmailAddress(authentication.getPrincipal().toString());
 		UserResponse userResponse = new UserResponse(user.getUserName(),user.getEmailAddress());
+		System.err.println("from /validateUser>> "+user);
 		return ResponseEntity.ok(userResponse);
 	}
 	
@@ -73,6 +74,7 @@ public class LoginController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = userRepo.findByEmailAddress(authentication.getPrincipal().toString());
 		UserResponse userResponse = new UserResponse(user.getUserName(),user.getEmailAddress());
+		System.err.println("from /validateUser>> "+user);
 		return ResponseEntity.ok(userResponse);
 	}
 

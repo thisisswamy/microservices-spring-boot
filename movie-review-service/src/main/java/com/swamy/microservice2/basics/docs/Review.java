@@ -13,10 +13,17 @@ public class Review {
 	private String id;
 	private String userName;
 	private String movieName;
-	private double rating;
+	private String rating;
 	private String verdict;
 	private List<String> castCrew;
 	private String key;
+	private String language;
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 	public String getId() {
 		return id;
 	}
@@ -35,10 +42,10 @@ public class Review {
 	public void setMovieName(String movieName) {
 		this.movieName = movieName;
 	}
-	public double getRating() {
+	public String getRating() {
 		return rating;
 	}
-	public void setRating(double rating) {
+	public void setRating(String rating) {
 		this.rating = rating;
 	}
 	public String getVerdict() {

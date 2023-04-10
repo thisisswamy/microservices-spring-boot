@@ -6,9 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swamy.microservice2.basics.models.UserResponse;
 
@@ -23,6 +27,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 @WebFilter("/*")
+@Order(Ordered.LOWEST_PRECEDENCE)
 public class AuthFilter implements Filter {
 
 	private ObjectMapper objectMapper = new ObjectMapper();
@@ -33,11 +38,11 @@ public class AuthFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.err.println("movie-ms-filter calling...");
 		Map<String, Object> data = new HashMap<>();
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		final String authorizationHeader = httpRequest.getHeader("Authorization");
+		System.err.println("movie-ms-filter auth 2 filter ..."+ authorizationHeader);
 		if (authorizationHeader == null) {
 			httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
 		
