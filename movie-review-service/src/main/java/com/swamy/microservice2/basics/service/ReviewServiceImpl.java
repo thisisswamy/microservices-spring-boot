@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.swamy.microservice2.basics.docs.Review;
+import com.swamy.microservice2.basics.models.CommonResponseModel;
 import com.swamy.microservice2.basics.models.ErrorMessage;
 import com.swamy.microservice2.basics.models.ReviewResponse;
 import com.swamy.microservice2.basics.models.UserInfo;
@@ -29,10 +30,10 @@ public class ReviewServiceImpl implements ReviewService {
 	private ModelMapper modelMapper;
 
 	@Override
-	public String writeReview(ReviewResponse req) {
+	public CommonResponseModel writeReview(ReviewResponse req) {
 		boolean isWritten = utility.getReviewByMovieName(req.getMovieName());
 		if(isWritten) {
-			return "ALready written please to edit or write for another moview";
+			return new CommonResponseModel("ALready written please to edit or write for another moview");
 		}else {
 			Review review=new Review();
 			review.setMovieName(req.getMovieName());
@@ -43,8 +44,7 @@ public class ReviewServiceImpl implements ReviewService {
 			review.setLanguage(req.getLanguage());
 			review.setKey(req.getKey());
 			repo.save(review);
-			System.out.println(review);
-			return "Review saved successfully";
+			return new CommonResponseModel("Successfully Saved Review");
 		}
 		
 	}
@@ -57,16 +57,16 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public List<ReviewResponse> getAllReviewsOfUser(UserInfo userInfo) {
-		List<ReviewResponse> findByUserNameList = repo.findByUserName(userInfo.getUserName());
-		return findByUserNameList;
+		List<Review> findByUserName = repo.findByUserName(userInfo.getUserName());
+		List<ReviewResponse> list = new ArrayList<>();
+		findByUserName.stream().forEach(t->{
+			list.add(modelMapper.map(t, ReviewResponse.class));
+		});
+		return list;
 		
 	}
 
-	@Override
-	public List<ReviewResponse> getAllReviewsByUserName(String userName) {
-		List<ReviewResponse> reviews = repo.findByUserName(userName);
-		return reviews;
-	}
+	
 
 	@Override
 	public List<ReviewResponse> getAllReviews() {
@@ -80,13 +80,13 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public String deleteReviewByKey(String key) {
+	public CommonResponseModel deleteReviewByKey(String key) {
 		boolean isPresent = utility.isReviewWritten(key);
 		if(isPresent) {
 			repo.deleteByKey(key);
-			return "successfully deleted";
+			return new CommonResponseModel("successfully deleted");
 		}else {
-			return "Review is Not present please enter correct key";
+			return new CommonResponseModel("Review is Not present please enter correct key");
 		}
 	}
 
@@ -109,5 +109,7 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return new ErrorMessage("Please provide valide data",404);
 	}
+
+	
 
 }

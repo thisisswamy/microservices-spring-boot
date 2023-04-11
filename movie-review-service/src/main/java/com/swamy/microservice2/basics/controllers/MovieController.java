@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.swamy.microservice2.basics.models.CommonResponseModel;
 import com.swamy.microservice2.basics.models.ErrorMessage;
 import com.swamy.microservice2.basics.models.ReviewResponse;
 import com.swamy.microservice2.basics.models.UserInfo;
@@ -25,7 +26,7 @@ public class MovieController {
 	private ReviewService reviewService;
 	
 	@PostMapping("/write")
-	public String writeReview(@RequestBody ReviewResponse response) {
+	public CommonResponseModel writeReview(@RequestBody ReviewResponse response) {
 		return reviewService.writeReview(response);	
 	}
 	
@@ -34,23 +35,21 @@ public class MovieController {
 		return reviewService.updateReview(response);	
 	}
 	
-	@GetMapping("/user")
+	@PostMapping("/user")
 	public List<ReviewResponse> getAllReviewsOfUser(@RequestBody UserInfo userInfo){
+		System.err.println(userInfo);
 		return reviewService.getAllReviewsOfUser(userInfo);
+		
 	}
 	
-	@GetMapping("/user/{userName}")
-	public List<ReviewResponse> getAllReviewsByUserName(@PathVariable String userName){
-		return reviewService.getAllReviewsByUserName(userName);
-	}
-	
+
 	@DeleteMapping("/delete")
 	public String deleteAllReviews() {
 		return reviewService.deleteAllReviews();
 	}
 	
 	@DeleteMapping("/delete/{key}")
-	public String deleteReviewByKey(@PathVariable String key) {
+	public CommonResponseModel deleteReviewByKey(@PathVariable String key) {
 		return reviewService.deleteReviewByKey(key);
 	}
 	

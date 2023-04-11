@@ -18,8 +18,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.InternalServerErrorException;
 
-@RestControllerAdvice
-public class GlobalExceptionHandler extends RuntimeException {
+//@RestControllerAdvice
+public class GlobalExceptionHandler{
 	/**
 	 * 
 	 */

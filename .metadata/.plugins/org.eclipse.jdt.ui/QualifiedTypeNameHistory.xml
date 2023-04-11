@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
-    <fullyQualifiedTypeName name="java.lang.Exception"/>
-    <fullyQualifiedTypeName name="com.swamy.microservice2.basics.utities.ReviewUtility"/>
-    <fullyQualifiedTypeName name="com.swamy.microservice2.basics.auth.AuthFilter"/>
     <fullyQualifiedTypeName name="java.lang.Override"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
     <fullyQualifiedTypeName name="jakarta.servlet.ServletException"/>
     <fullyQualifiedTypeName name="org.springframework.cloud.openfeign.FeignClient"/>
     <fullyQualifiedTypeName name="org.springframework.cloud.openfeign.EnableFeignClients"/>
-    <fullyQualifiedTypeName name="com.swamy.microservice2.basics.auth.UserAuthFeinClient"/>
     <fullyQualifiedTypeName name="org.springframework.web.servlet.HandlerInterceptor"/>
     <fullyQualifiedTypeName name="feign.RequestInterceptor"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
     <fullyQualifiedTypeName name="com.swamy.microservice.basics.repos.UserRepo"/>
     <fullyQualifiedTypeName name="com.swamy.microservice.basics.utilities.UserUtilities"/>
@@ -32,9 +26,7 @@
     <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
     <fullyQualifiedTypeName name="org.springframework.web.util.UrlPathHelper"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="com.swamy.microservice.basics.models.UserRequest"/>
-    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
     <fullyQualifiedTypeName name="jakarta.ws.rs.BadRequestException"/>
     <fullyQualifiedTypeName name="jakarta.ws.rs.InternalServerErrorException"/>
     <fullyQualifiedTypeName name="com.swamy.microservice.basics.configuration.CustomUserDetailsService"/>
@@ -54,10 +46,18 @@
     <fullyQualifiedTypeName name="jakarta.servlet.annotation.WebFilter"/>
     <fullyQualifiedTypeName name="jakarta.servlet.Filter"/>
     <fullyQualifiedTypeName name="com.swamy.microservice2.basics.auth.MyCorsFitler"/>
-    <fullyQualifiedTypeName name="org.springframework.web.filter.OncePerRequestFilter"/>
-    <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
     <fullyQualifiedTypeName name="org.springframework.core.annotation.Order"/>
     <fullyQualifiedTypeName name="org.springframework.core.Ordered"/>
     <fullyQualifiedTypeName name="com.google.common.net.MediaType"/>
     <fullyQualifiedTypeName name="jakarta.ws.rs.core.MediaType"/>
+    <fullyQualifiedTypeName name="com.swamy.microservice2.basics.auth.UserAuthFeinClient"/>
+    <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
+    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
+    <fullyQualifiedTypeName name="org.springframework.web.filter.OncePerRequestFilter"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.swamy.microservice2.basics.models.ReviewResponse"/>
+    <fullyQualifiedTypeName name="com.swamy.microservice2.basics.models.CommonResponseModel"/>
 </qualifiedTypeNameHistroy>

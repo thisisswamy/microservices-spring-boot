@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 @WebFilter("/*")
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(1)
 public class MyCorsFitler implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -34,7 +34,7 @@ public class MyCorsFitler implements Filter {
         if ("OPTIONS".equals(httpRequest.getMethod())) {
         	httpResponse.setStatus(HttpServletResponse.SC_OK);
         } else { 
-            chain.doFilter(request, response);
+            chain.doFilter(httpRequest, httpResponse);
         }
 		
 	}

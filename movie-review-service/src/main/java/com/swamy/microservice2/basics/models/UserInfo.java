@@ -22,6 +22,11 @@ public class UserInfo {
 	public String toString() {
 		return "UserInfo [userName=" + userName + "]";
 	}
+
+	public UserInfo(String userName) {
+		super();
+		this.userName = userName;
+	}
 	
 
 }

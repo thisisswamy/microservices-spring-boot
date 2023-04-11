@@ -14,7 +14,7 @@ public interface ReviewRepo extends MongoRepository<Review, String> {
 	Review findByKey(String key);
 	
 	@Query(value = "{ userName : ?0 }")
-	public List<ReviewResponse> findByUserName(String userName);
+	public List<Review> findByUserName(String userName);
 	
 	@Query(value = "{ key : ?0 }",delete=true)
 	void deleteByKey(String key);
