@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Document(value = "reviews")
 public class Review {
-	
-	
 	@Id
 	private String id;
 	private String userName;

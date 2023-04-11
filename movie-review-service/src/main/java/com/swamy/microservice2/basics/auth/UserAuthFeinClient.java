@@ -12,10 +12,8 @@ import com.swamy.microservice2.basics.models.UserResponse;
 
 @FeignClient(name = "user-ms-service",path = "/api/v1/user")
 public interface UserAuthFeinClient {
-	@GetMapping("/validateUser")
-	public ResponseEntity<UserResponse> validateUserCreds();
-	
-	@GetMapping("/UserDetails/token")
-	ResponseEntity<UserResponse> getUserDetails(@RequestHeader("Authorization") String token);
+
+	@GetMapping("/user-verify/token")
+	boolean isUserAuthencated(@RequestHeader("Authorization") String token);
 	
 }

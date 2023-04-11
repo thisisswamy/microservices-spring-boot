@@ -16,7 +16,7 @@ public class ReviewUtility {
 	private ReviewRepo repo;
 	
 	public boolean isReviewWritten(String key) {
-		Review review=repo.findByKey(key.toLowerCase());
+		Review review=repo.findByKey(key);
 		return review != null ? true : false;
 	}
 	
@@ -28,13 +28,9 @@ public class ReviewUtility {
 	public boolean getReviewByMovieName(String movieName) {
 		List<Review> findAll = repo.findAll();
 		boolean anyMatch = findAll.stream().anyMatch(t->t.getMovieName().toLowerCase().equals(movieName.toLowerCase()));
-		System.out.println("new movie reg -> "+anyMatch);
 		return anyMatch;
 	}
 
-	public String getError() {
-		return "Something went wrong";
-		
-	}
+	
 
 }

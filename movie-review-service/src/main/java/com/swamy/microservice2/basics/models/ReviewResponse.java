@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 
 public class ReviewResponse {
-
 	
-	private String id;
 	private String userName;
 	private String movieName;
 	private String rating;
@@ -15,7 +13,6 @@ public class ReviewResponse {
 	private List<String> castCrew;
 	private String key;
 	private String language;
-	
 	public String getLanguage() {
 		return language;
 	}
@@ -24,12 +21,6 @@ public class ReviewResponse {
 	}
 	public ReviewResponse() {
 		super();
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getUserName() {
 		return userName;

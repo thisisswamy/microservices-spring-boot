@@ -27,7 +27,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 @WebFilter("/*")
-@Order(Ordered.LOWEST_PRECEDENCE)
+@Order(2)
 public class AuthFilter implements Filter {
 
 	private ObjectMapper objectMapper = new ObjectMapper();
@@ -45,7 +45,6 @@ public class AuthFilter implements Filter {
 		System.err.println("movie-ms-filter auth 2 filter ..."+ authorizationHeader);
 		if (authorizationHeader == null) {
 			httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
-		
 			LocalDateTime current = LocalDateTime.now();
 			data.put("timestamp", current.toString());
 			data.put("exception", "Missing Authorization value in header");
@@ -53,22 +52,21 @@ public class AuthFilter implements Filter {
 			return;
 		}
 		else if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-		
-//			ResponseEntity<UserResponse> validateUserCreds = userAuthFeinClient.validateUserCreds();
-			ResponseEntity<UserResponse> validateUserCreds = userAuthFeinClient. getUserDetails(authorizationHeader);
-			System.out.println("from Movie-ms-filter >> "+validateUserCreds);
-			if(validateUserCreds == null) {
+			boolean validateUserCreds = userAuthFeinClient.isUserAuthencated(authorizationHeader);
+			if(!validateUserCreds) {
+				System.out.println(" Movie-ms-filter user UNauthentication >> "+ validateUserCreds);
 				LocalDateTime current = LocalDateTime.now();
 				data.put("timestamp", current.toString());
 				data.put("exception", "Invalid credentials");
 				httpResponse.getOutputStream().println(objectMapper.writeValueAsString(data));
 				return;
+			}else {
+				System.out.println(" Movie-ms-filter user authenticated >> "+ validateUserCreds);
+				chain.doFilter(httpRequest, httpResponse);
 			}
-			chain.doFilter(request, response);
+			
 			
 		}
-
-		chain.doFilter(request, response);
 
 	}
 
