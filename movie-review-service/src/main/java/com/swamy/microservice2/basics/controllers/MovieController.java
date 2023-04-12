@@ -18,7 +18,7 @@ import com.swamy.microservice2.basics.models.ReviewResponse;
 import com.swamy.microservice2.basics.models.UserInfo;
 import com.swamy.microservice2.basics.service.ReviewService;
 
-@CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
+//@CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
 @RestController
 public class MovieController {
 	
