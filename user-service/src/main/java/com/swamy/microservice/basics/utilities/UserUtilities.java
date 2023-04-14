@@ -21,7 +21,7 @@ public class UserUtilities {
 	public UserResponse getUserByMailID(String email) {
 		User user = userRepo.findByEmailAddress(email);
 		if(user!=null) {
-			return  new UserResponse(user.getUserName(),user.getEmailAddress());
+			return  new UserResponse(user.getUserName(),user.getEmailAddress(),user.getDisplayName());
 		}
 		return null;	
 	}

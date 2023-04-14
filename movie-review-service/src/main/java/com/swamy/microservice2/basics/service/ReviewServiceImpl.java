@@ -1,5 +1,6 @@
 package com.swamy.microservice2.basics.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -8,8 +9,11 @@ import java.util.stream.Stream;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.swamy.microservice2.basics.docs.Review;
+import com.swamy.microservice2.basics.docs.ReviewFormImage;
 import com.swamy.microservice2.basics.models.CommonResponseModel;
 import com.swamy.microservice2.basics.models.ErrorMessage;
 import com.swamy.microservice2.basics.models.ReviewResponse;
@@ -63,7 +67,6 @@ public class ReviewServiceImpl implements ReviewService {
 			list.add(modelMapper.map(t, ReviewResponse.class));
 		});
 		return list;
-		
 	}
 
 	
@@ -110,6 +113,37 @@ public class ReviewServiceImpl implements ReviewService {
 		return new ErrorMessage("Please provide valide data",404);
 	}
 
+	@Override
+	public CommonResponseModel writeReviewWithPoster(ReviewResponse reviewResponse, MultipartFile multipartFile) throws IOException {
+		boolean isWritten = utility.getReviewByMovieName(reviewResponse.getMovieName());
+		if(isWritten) {
+			return new CommonResponseModel("ALready written please to edit or write for another moview");
+		}else {
+			Review review=new Review();
+			
+			//poster
+			ReviewFormImage img = new ReviewFormImage();
+			img.setImageName(StringUtils.cleanPath(multipartFile.getOriginalFilename()));
+			img.setImageSize(multipartFile.getSize());
+			img.setImageBytes(multipartFile.getBytes());
+			img.setImageType(multipartFile.getContentType());
+			
+			//review
+			review.setMovieName(reviewResponse.getMovieName());
+			review.setRating(reviewResponse.getRating());
+			review.setVerdict(reviewResponse.getVerdict());
+			review.setUserName(reviewResponse.getUserName());
+			review.setCastCrew(reviewResponse.getCastCrew());
+			review.setLanguage(reviewResponse.getLanguage());
+			review.setKey(reviewResponse.getKey());
+			review.setReviewFormImage(img);
+			repo.save(review);
+			return new CommonResponseModel("Successfully Saved Review");
+		}
+	}
+
+	
+	
 	
 
 }

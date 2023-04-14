@@ -64,7 +64,7 @@ public class LoginController {
 	public ResponseEntity<UserResponse> validateUserCreds(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = userRepo.findByEmailAddress(authentication.getPrincipal().toString());
-		UserResponse userResponse = new UserResponse(user.getUserName(),user.getEmailAddress());
+		UserResponse userResponse = new UserResponse(user.getUserName(),user.getEmailAddress(),user.getDisplayName());
 		System.err.println("from /validateUser>> "+user);
 		return ResponseEntity.ok(userResponse);
 	}
@@ -73,7 +73,7 @@ public class LoginController {
 	ResponseEntity<UserResponse> getUserDetails(@RequestHeader("Authorization") String token) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = userRepo.findByEmailAddress(authentication.getPrincipal().toString());
-		UserResponse userResponse = new UserResponse(user.getUserName(),user.getEmailAddress());
+		UserResponse userResponse = new UserResponse(user.getUserName(),user.getEmailAddress(),user.getDisplayName());
 		System.err.println("from /validateUser token>> "+user);
 		return ResponseEntity.ok(userResponse);
 	}

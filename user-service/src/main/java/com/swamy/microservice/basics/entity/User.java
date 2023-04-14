@@ -19,6 +19,13 @@ public class User {
 	private long id;
 	private String userName;
 	private String emailAddress;
+	private String displayName;
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
 	private String password;
 	private String confirmPassword;
 	public User() {

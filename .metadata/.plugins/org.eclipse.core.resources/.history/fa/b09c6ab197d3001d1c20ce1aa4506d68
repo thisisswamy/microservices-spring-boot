@@ -1,9 +1,0 @@
-package com.swamy.microservice.basics.models;
-
-public class UserRequest {
-	private long id;
-	private String userName;
-	private String emailAddress;
-	private String password;
-	private String confirmPassword;
-}

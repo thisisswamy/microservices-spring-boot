@@ -11,9 +11,16 @@ import lombok.Setter;
 public class UserRequest {
 	private String userName;
 	private String emailAddress;
+	private String displayName;
 	private String password;
 	private String confirmPassword;
 	
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
 	
 	
 	public UserRequest() {
