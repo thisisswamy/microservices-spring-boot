@@ -1,6 +1,0 @@
-package com.swamy.microservice2.basics.models;
-
-@Component
-public class ErrorMessage {
-
-}

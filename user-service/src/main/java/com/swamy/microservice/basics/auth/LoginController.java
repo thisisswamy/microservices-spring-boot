@@ -65,7 +65,6 @@ public class LoginController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = userRepo.findByEmailAddress(authentication.getPrincipal().toString());
 		UserResponse userResponse = new UserResponse(user.getUserName(),user.getEmailAddress(),user.getDisplayName());
-		System.err.println("from /validateUser>> "+user);
 		return ResponseEntity.ok(userResponse);
 	}
 	
@@ -74,7 +73,6 @@ public class LoginController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = userRepo.findByEmailAddress(authentication.getPrincipal().toString());
 		UserResponse userResponse = new UserResponse(user.getUserName(),user.getEmailAddress(),user.getDisplayName());
-		System.err.println("from /validateUser token>> "+user);
 		return ResponseEntity.ok(userResponse);
 	}
 	
@@ -82,7 +80,6 @@ public class LoginController {
 	boolean isUserAuthencated(@RequestHeader("Authorization") String token) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = userRepo.findByEmailAddress(authentication.getPrincipal().toString());
-		System.err.println("Authenticated :: > "+user);
 		return  user != null ? true : false;
 	}
 	

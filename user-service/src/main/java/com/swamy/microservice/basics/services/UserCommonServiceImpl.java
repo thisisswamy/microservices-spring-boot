@@ -3,6 +3,7 @@ package com.swamy.microservice.basics.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,30 +58,30 @@ public class UserCommonServiceImpl implements UserCommonService {
 
 	@Override
 	public List<UserResponse> getAllUsersList() {
-		List<User> usersList = userRepo.findAll();
-		List<UserResponse> users =new ArrayList<>();
-		usersList.stream().forEach(t->{
-			users.add(new UserResponse(t.getUserName(), t.getEmailAddress(),t.getDisplayName()));
-		});
-		return users;
+		return userRepo.findAll()
+	            .stream()
+	            .map(user -> new UserResponse(user.getUserName(), user.getEmailAddress(), user.getDisplayName()))
+	            .collect(Collectors.toList());
 	}
-
+	
+	
 	@Override
 	public UserWithReviews getUserWithReviews(String userName) {
-		//rest call to movie reviews
-		List<ReviewResponse> allReviewsByUserName = feinClient.getAllReviewsByUserName(userName);
-		//getting user from db
-		User user = userRepo.findByUserName(userName);
-		UserResponse res =new UserResponse();
-		res.setUserName(user.getUserName());
-		res.setEmailAddress(user.getEmailAddress());
 		
-		//setting user + review
-		UserWithReviews userWithReview =new UserWithReviews();
-		userWithReview.setMovieResponse(allReviewsByUserName);
-		userWithReview.setUserResponse(res);
-		
-		return userWithReview;
+		//rest call to get reviews
+	    List<ReviewResponse> allReviewsByUserName = feinClient.getAllReviewsByUserName(userName);
+	    
+	    //getting user from db
+	    User user = userRepo.findByUserName(userName);
+	    
+	    //creating and returning UserWithReviews object
+	    return new UserWithReviews(
+	            new UserResponse(
+	            		user.getUserName(), 
+	            		user.getEmailAddress(), 
+	            		user.getDisplayName()),
+	            allReviewsByUserName
+	    );
 	}
 
 	@Override
@@ -89,7 +90,6 @@ public class UserCommonServiceImpl implements UserCommonService {
 		user.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
 		user.setPassword(bCryptPasswordEncoder.encode(userRequest.getConfirmPassword()));
 		User updatedUser = userRepo.save(user);
-		System.out.println(updatedUser);
 		if(updatedUser!=null) {
 			return true;
 		}

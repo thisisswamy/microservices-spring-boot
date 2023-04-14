@@ -7,9 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserWithReviews {
 	private UserResponse userResponse;
+	
 	private List<ReviewResponse> movieResponse;
 	public UserWithReviews() {
 		super();
+	}
+	public UserWithReviews(UserResponse userResponse, List<ReviewResponse> movieResponse) {
+		super();
+		this.userResponse = userResponse;
+		this.movieResponse = movieResponse;
 	}
 	public UserResponse getUserResponse() {
 		return userResponse;

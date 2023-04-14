@@ -44,7 +44,7 @@ public class PasswordSettings {
 	private UserUtilities userUtilities;
 	@PostMapping("/password/forgot-password")
 	public ResponseEntity<?> forgotPassword(@RequestBody ForgotPassword forgotPassword){
-		System.err.println("email>>> "+forgotPassword);
+
 		UserResponse userByMailID = userUtilities.getUserByMailID(forgotPassword.getEmail());
 		if(userByMailID!=null) {
 			return ResponseEntity.ok(userByMailID);

@@ -7,11 +7,7 @@ import org.springframework.data.annotation.Id;
 public class ReviewResponse {
 
 	
-	@Override
-	public String toString() {
-		return "ReviewResponse [id=" + id + ", userName=" + userName + ", movieName=" + movieName + ", rating=" + rating
-				+ ", verdict=" + verdict + ", castCrew=" + castCrew + ", key=" + key + "]";
-	}
+
 	private String id;
 	private String userName;
 	private String movieName;
@@ -64,6 +60,10 @@ public class ReviewResponse {
 	public void setKey(String key) {
 		this.key = key;
 	}
-	
+	@Override
+	public String toString() {
+		return "ReviewResponse [id=" + id + ", userName=" + userName + ", movieName=" + movieName + ", rating=" + rating
+				+ ", verdict=" + verdict + ", castCrew=" + castCrew + ", key=" + key + "]";
+	}
 
 }
