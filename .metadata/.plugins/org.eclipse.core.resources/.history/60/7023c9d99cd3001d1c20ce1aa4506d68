@@ -1,9 +1,0 @@
-package com.swamy.microservice.basics.services;
-
-import com.swamy.microservice.basics.models.UserRequest;
-
-public interface UserCommonService {
-
-	String registerUser(UserRequest userRequest);
-
-}

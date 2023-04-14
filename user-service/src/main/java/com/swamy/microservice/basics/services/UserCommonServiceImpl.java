@@ -46,6 +46,7 @@ public class UserCommonServiceImpl implements UserCommonService {
 			User user= new User();
 			user.setUserName(request.getUserName());
 			user.setEmailAddress(request.getEmailAddress());
+			user.setDisplayName(request.getDisplayName());
 			user.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
 			user.setConfirmPassword(bCryptPasswordEncoder.encode(request.getConfirmPassword()));
 			userRepo.save(user);
@@ -59,7 +60,7 @@ public class UserCommonServiceImpl implements UserCommonService {
 		List<User> usersList = userRepo.findAll();
 		List<UserResponse> users =new ArrayList<>();
 		usersList.stream().forEach(t->{
-			users.add(new UserResponse(t.getUserName(), t.getEmailAddress()));
+			users.add(new UserResponse(t.getUserName(), t.getEmailAddress(),t.getDisplayName()));
 		});
 		return users;
 	}

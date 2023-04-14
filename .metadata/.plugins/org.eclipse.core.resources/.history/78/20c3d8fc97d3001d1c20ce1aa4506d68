@@ -1,7 +1,0 @@
-package com.swamy.microservice.basics;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface UserRepo extends JpaRepository<User, ID> {
-
-}

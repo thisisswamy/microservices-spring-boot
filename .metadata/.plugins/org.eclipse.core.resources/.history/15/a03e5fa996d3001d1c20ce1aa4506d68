@@ -1,7 +1,0 @@
-package com.swamy.microservice.basics.entity;
-
-@Entity
-@
-public class User {
-
-}

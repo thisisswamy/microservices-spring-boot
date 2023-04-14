@@ -1,9 +1,0 @@
-package com.swamy.microservice2.basics.repos;
-
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-import com.swamy.microservice2.basics.docs.Review;
-
-public interface ReviewRepo extends MongoRepository<Review, Long> {
-
-}

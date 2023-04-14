@@ -1,6 +1,0 @@
-package com.swamy.microservice.basics.feinclients;
-
-@
-public class ReviewServiceFeinClient {
-
-}

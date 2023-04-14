@@ -10,22 +10,34 @@ import lombok.Setter;
 @Component
 public class UserResponse {
 
-	@Override
-	public String toString() {
-		return "UserResponse [userName=" + userName + ", emailAddress=" + emailAddress + "]";
-	}
+	
 	private String userName;
 	private String emailAddress;
-	
+	private String displayName;
 	
 	public UserResponse() {
 		super();
 	}
-	public UserResponse(String userName, String emailAddress) {
+	
+	
+	
+	public UserResponse(String userName, String emailAddress, String displayName) {
 		super();
 		this.userName = userName;
 		this.emailAddress = emailAddress;
+		this.displayName = displayName;
 	}
+
+
+
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	
 	public String getUserName() {
 		return userName;
 	}

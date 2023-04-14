@@ -2,8 +2,12 @@ package com.swamy.microservice2.basics.service;
 
 
 
+import java.io.IOException;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.swamy.microservice2.basics.docs.ReviewFormImage;
 import com.swamy.microservice2.basics.models.CommonResponseModel;
 import com.swamy.microservice2.basics.models.ErrorMessage;
 import com.swamy.microservice2.basics.models.ReviewResponse;
@@ -23,6 +27,8 @@ public interface ReviewService {
 	CommonResponseModel deleteReviewByKey(String key);
 
 	ErrorMessage updateReview(ReviewResponse response);
+
+	CommonResponseModel writeReviewWithPoster(ReviewResponse reviewResponse, MultipartFile multipartFile) throws IOException;
 
 	
 

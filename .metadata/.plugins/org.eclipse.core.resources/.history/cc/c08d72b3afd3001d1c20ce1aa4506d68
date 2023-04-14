@@ -1,5 +1,0 @@
-package com.swamy.microservice2.basics.models;
-@component
-public class UserInfo {
-
-}

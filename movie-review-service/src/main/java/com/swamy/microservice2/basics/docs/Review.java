@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.servlet.annotation.MultipartConfig;
+
 @Document(value = "reviews")
 public class Review {
 	@Id
@@ -18,6 +20,15 @@ public class Review {
 	private List<String> castCrew;
 	private String key;
 	private String language;
+	private ReviewFormImage reviewFormImage;
+	
+	
+	public ReviewFormImage getReviewFormImage() {
+		return reviewFormImage;
+	}
+	public void setReviewFormImage(ReviewFormImage reviewFormImage) {
+		this.reviewFormImage = reviewFormImage;
+	}
 	public String getLanguage() {
 		return language;
 	}
