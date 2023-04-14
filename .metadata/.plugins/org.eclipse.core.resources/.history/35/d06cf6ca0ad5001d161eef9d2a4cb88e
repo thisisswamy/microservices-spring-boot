@@ -1,5 +1,0 @@
-package com.swamy.microservice.basics.JWT;
-
-public class JwtToken {
-
-}

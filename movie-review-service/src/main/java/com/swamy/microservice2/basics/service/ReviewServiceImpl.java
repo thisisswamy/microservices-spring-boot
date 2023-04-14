@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.modelmapper.ModelMapper;
@@ -61,25 +62,25 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public List<ReviewResponse> getAllReviewsOfUser(UserInfo userInfo) {
-		List<Review> findByUserName = repo.findByUserName(userInfo.getUserName());
-		List<ReviewResponse> list = new ArrayList<>();
-		findByUserName.stream().forEach(t->{
-			list.add(modelMapper.map(t, ReviewResponse.class));
-		});
-		return list;
+		
+		return  repo.findByUserName(userInfo.getUserName())
+				.stream()
+				.map(review-> modelMapper.map(review, ReviewResponse.class))
+				.collect(Collectors.toList());
+		
+
 	}
 
 	
 
 	@Override
 	public List<ReviewResponse> getAllReviews() {
-		List<Review> reviewList = repo.findAll();
-		List<ReviewResponse> list=new ArrayList<>();
-		reviewList.stream().forEach(t->{
-			ReviewResponse map = modelMapper.map(t, ReviewResponse.class);
-			list.add(map);
-		});
-		return list;
+		
+		 return repo.findAll()
+						.stream()
+						.map(reviewListObj -> modelMapper.map(reviewListObj, ReviewResponse.class))
+						.collect(Collectors.toList());
+
 	}
 
 	@Override
