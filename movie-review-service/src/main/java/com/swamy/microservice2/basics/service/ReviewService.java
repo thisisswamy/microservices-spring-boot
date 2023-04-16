@@ -20,7 +20,7 @@ public interface ReviewService {
 
 	String deleteAllReviews();
 
-	List<ReviewResponse> getAllReviewsOfUser(UserInfo userInfo);
+	List<ReviewResponse> getAllReviewsOfUser(UserInfo userInfo) throws IOException;
 
 	List<ReviewResponse> getAllReviews();
 

@@ -17,6 +17,14 @@ public class ReviewFormImage {
 	private String imageType;
 	private byte[] imageBytes;
 	
+	
+	public ReviewFormImage(String imageName, long imageSize, String imageType, byte[] imageBytes) {
+		super();
+		this.imageName = imageName;
+		this.imageSize = imageSize;
+		this.imageType = imageType;
+		this.imageBytes = imageBytes;
+	}
 	public String getImageType() {
 		return imageType;
 	}
