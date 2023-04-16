@@ -24,23 +24,23 @@ import com.swamy.microservice2.basics.utities.ReviewUtility;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
-	
+
 	@Autowired
 	private ReviewRepo repo;
-	
+
 	@Autowired
 	private ReviewUtility utility;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@Override
 	public CommonResponseModel writeReview(ReviewResponse req) {
 		boolean isWritten = utility.getReviewByMovieName(req.getMovieName());
-		if(isWritten) {
+		if (isWritten) {
 			return new CommonResponseModel("ALready written please to edit or write for another moview");
-		}else {
-			Review review=new Review();
+		} else {
+			Review review = new Review();
 			review.setMovieName(req.getMovieName());
 			review.setRating(req.getRating());
 			review.setVerdict(req.getVerdict());
@@ -51,7 +51,7 @@ public class ReviewServiceImpl implements ReviewService {
 			repo.save(review);
 			return new CommonResponseModel("Successfully Saved Review");
 		}
-		
+
 	}
 
 	@Override
@@ -61,35 +61,32 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<ReviewResponse> getAllReviewsOfUser(UserInfo userInfo) {
-		
-		return  repo.findByUserName(userInfo.getUserName())
-				.stream()
-				.map(review-> modelMapper.map(review, ReviewResponse.class))
-				.collect(Collectors.toList());
-		
+	public List<ReviewResponse> getAllReviewsOfUser(UserInfo userInfo) throws IOException {
+		return repo.findByUserName(userInfo.getUserName()).stream().map(review -> {
+			ReviewFormImage reviewFormImage = review.getReviewFormImage();
+			reviewFormImage.setImageBytes(ReviewUtility.decompressImage(reviewFormImage.getImageBytes()));
+			review.setReviewFormImage(reviewFormImage);
+			return modelMapper.map(review, ReviewResponse.class);
+
+		}).collect(Collectors.toList());
 
 	}
 
-	
-
 	@Override
 	public List<ReviewResponse> getAllReviews() {
-		
-		 return repo.findAll()
-						.stream()
-						.map(reviewListObj -> modelMapper.map(reviewListObj, ReviewResponse.class))
-						.collect(Collectors.toList());
+
+		return repo.findAll().stream().map(reviewListObj -> modelMapper.map(reviewListObj, ReviewResponse.class))
+				.collect(Collectors.toList());
 
 	}
 
 	@Override
 	public CommonResponseModel deleteReviewByKey(String key) {
 		boolean isPresent = utility.isReviewWritten(key);
-		if(isPresent) {
+		if (isPresent) {
 			repo.deleteByKey(key);
 			return new CommonResponseModel("successfully deleted");
-		}else {
+		} else {
 			return new CommonResponseModel("Review is Not present please enter correct key");
 		}
 	}
@@ -97,54 +94,46 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public ErrorMessage updateReview(ReviewResponse res) {
 		Review isWritten = utility.getReviewObject(res.getKey());
-		if(isWritten!=null) {
+		if (isWritten != null) {
 			isWritten.setMovieName(res.getMovieName());
 			isWritten.setCastCrew(res.getCastCrew());
 			isWritten.setRating(res.getRating());
 			isWritten.setUserName(res.getUserName());
 			isWritten.setVerdict(res.getVerdict());
 			isWritten.setLanguage(res.getLanguage());
-			isWritten.setKey(res.getKey());		
-			
+			isWritten.setKey(res.getKey());
+
 //			Review map = modelMapper.map(res,Review.class);
 			repo.save(isWritten);
-			return new ErrorMessage("Review Updated Successfully",200);
+			return new ErrorMessage("Review Updated Successfully", 200);
 		}
-		
-		return new ErrorMessage("Please provide valide data",404);
+
+		return new ErrorMessage("Please provide valide data", 404);
 	}
 
 	@Override
-	public CommonResponseModel writeReviewWithPoster(ReviewResponse reviewResponse, MultipartFile multipartFile) throws IOException {
+	public CommonResponseModel writeReviewWithPoster(ReviewResponse reviewResponse, MultipartFile multipartFile)
+			throws IOException {
+		long startTime = System.nanoTime();
 		boolean isWritten = utility.getReviewByMovieName(reviewResponse.getMovieName());
-		if(isWritten) {
+		if (isWritten) {
 			return new CommonResponseModel("ALready written please to edit or write for another moview");
-		}else {
-			Review review=new Review();
-			
-			//poster
-			ReviewFormImage img = new ReviewFormImage();
-			img.setImageName(StringUtils.cleanPath(multipartFile.getOriginalFilename()));
-			img.setImageSize(multipartFile.getSize());
-			img.setImageBytes(multipartFile.getBytes());
-			img.setImageType(multipartFile.getContentType());
-			
-			//review
-			review.setMovieName(reviewResponse.getMovieName());
-			review.setRating(reviewResponse.getRating());
-			review.setVerdict(reviewResponse.getVerdict());
-			review.setUserName(reviewResponse.getUserName());
-			review.setCastCrew(reviewResponse.getCastCrew());
-			review.setLanguage(reviewResponse.getLanguage());
-			review.setKey(reviewResponse.getKey());
-			review.setReviewFormImage(img);
+		} else {
+
+			// poster
+			ReviewFormImage img = new ReviewFormImage(StringUtils.cleanPath(multipartFile.getOriginalFilename()),
+					multipartFile.getSize(), multipartFile.getContentType(),
+					ReviewUtility.compressImage(multipartFile.getBytes()));
+
+			Review review = new Review(reviewResponse.getUserName(), reviewResponse.getMovieName(),
+					reviewResponse.getRating(), reviewResponse.getVerdict(), reviewResponse.getCastCrew(),
+					reviewResponse.getKey(), reviewResponse.getLanguage(), img);
 			repo.save(review);
+			long endTime = System.nanoTime();
+			double executionTime = (endTime - startTime) / 1_000_000_000.0;
+			System.err.println("Execution time: " + executionTime + " seconds");
 			return new CommonResponseModel("Successfully Saved Review");
 		}
 	}
-
-	
-	
-	
 
 }

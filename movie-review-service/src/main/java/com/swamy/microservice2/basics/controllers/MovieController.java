@@ -50,8 +50,7 @@ public class MovieController {
 	}
 	
 	@PostMapping("/user")
-	public List<ReviewResponse> getAllReviewsOfUser(@RequestBody UserInfo userInfo){
-		System.err.println(userInfo);
+	public List<ReviewResponse> getAllReviewsOfUser(@RequestBody UserInfo userInfo) throws IOException{
 		return reviewService.getAllReviewsOfUser(userInfo);
 		
 	}

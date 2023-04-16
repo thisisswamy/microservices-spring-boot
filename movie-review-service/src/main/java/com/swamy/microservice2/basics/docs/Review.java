@@ -11,6 +11,20 @@ import jakarta.servlet.annotation.MultipartConfig;
 
 @Document(value = "reviews")
 public class Review {
+	public Review(String userName, String movieName, String rating, String verdict, List<String> castCrew,
+			String key, String language, ReviewFormImage reviewFormImage) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.movieName = movieName;
+		this.rating = rating;
+		this.verdict = verdict;
+		this.castCrew = castCrew;
+		this.key = key;
+		this.language = language;
+		this.reviewFormImage = reviewFormImage;
+	}
+
 	@Id
 	private String id;
 	private String userName;
