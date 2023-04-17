@@ -1,5 +1,6 @@
 package com.swamy.microservice2.basics.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ import com.swamy.microservice2.basics.utities.ReviewUtility;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
+
+	private final static String POSTERS_FOLDER = "C:/Users/SWAMY/OneDrive/Desktop/Full-Stack-Applications/Angular/movie-review-app/src/assets/posters/";
 
 	@Autowired
 	private ReviewRepo repo;
@@ -62,13 +65,9 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public List<ReviewResponse> getAllReviewsOfUser(UserInfo userInfo) throws IOException {
-		return repo.findByUserName(userInfo.getUserName()).stream().map(review -> {
-			ReviewFormImage reviewFormImage = review.getReviewFormImage();
-			reviewFormImage.setImageBytes(ReviewUtility.decompressImage(reviewFormImage.getImageBytes()));
-			review.setReviewFormImage(reviewFormImage);
-			return modelMapper.map(review, ReviewResponse.class);
-
-		}).collect(Collectors.toList());
+		return repo.findByUserName(userInfo.getUserName())
+		.stream().map(review ->  modelMapper.map(review, ReviewResponse.class))
+		.collect(Collectors.toList());
 
 	}
 
@@ -82,9 +81,11 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public CommonResponseModel deleteReviewByKey(String key) {
-		boolean isPresent = utility.isReviewWritten(key);
-		if (isPresent) {
+		Review isPresent = utility.getReviewObject(key);
+		if (isPresent !=null) {
 			repo.deleteByKey(key);
+			File file = new File(POSTERS_FOLDER  + isPresent.getReviewFormImage().getImageName());
+			file.delete();
 			return new CommonResponseModel("successfully deleted");
 		} else {
 			return new CommonResponseModel("Review is Not present please enter correct key");
@@ -103,7 +104,7 @@ public class ReviewServiceImpl implements ReviewService {
 			isWritten.setLanguage(res.getLanguage());
 			isWritten.setKey(res.getKey());
 
-//			Review map = modelMapper.map(res,Review.class);
+
 			repo.save(isWritten);
 			return new ErrorMessage("Review Updated Successfully", 200);
 		}
@@ -114,7 +115,9 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public CommonResponseModel writeReviewWithPoster(ReviewResponse reviewResponse, MultipartFile multipartFile)
 			throws IOException {
-		long startTime = System.nanoTime();
+		
+		String filePath = POSTERS_FOLDER + StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
 		boolean isWritten = utility.getReviewByMovieName(reviewResponse.getMovieName());
 		if (isWritten) {
 			return new CommonResponseModel("ALready written please to edit or write for another moview");
@@ -122,16 +125,14 @@ public class ReviewServiceImpl implements ReviewService {
 
 			// poster
 			ReviewFormImage img = new ReviewFormImage(StringUtils.cleanPath(multipartFile.getOriginalFilename()),
-					multipartFile.getSize(), multipartFile.getContentType(),
-					ReviewUtility.compressImage(multipartFile.getBytes()));
+					multipartFile.getSize(), multipartFile.getContentType());
 
 			Review review = new Review(reviewResponse.getUserName(), reviewResponse.getMovieName(),
 					reviewResponse.getRating(), reviewResponse.getVerdict(), reviewResponse.getCastCrew(),
 					reviewResponse.getKey(), reviewResponse.getLanguage(), img);
 			repo.save(review);
-			long endTime = System.nanoTime();
-			double executionTime = (endTime - startTime) / 1_000_000_000.0;
-			System.err.println("Execution time: " + executionTime + " seconds");
+			
+			multipartFile.transferTo(new File(filePath));
 			return new CommonResponseModel("Successfully Saved Review");
 		}
 	}
