@@ -1,0 +1,28 @@
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway:
+            route:
+              RouteDefinitionLocator: INFO
+    root: INFO
+server:
+  port: 8989
+spring:
+  application:
+    name: api-gateway-ms-service
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin *
+        - AddResponseHeader=Access-Control-Allow-Origin, *
+      routes:
+      - id: moview-review-ms
+        predicates:
+        - Path=/api/v1/reviews/**
+        uri: lb://moview-review-ms
+      - id: user-ms-service
+        predicates:
+        - Path=/api/v1/user/**
+        uri: lb://user-ms-service

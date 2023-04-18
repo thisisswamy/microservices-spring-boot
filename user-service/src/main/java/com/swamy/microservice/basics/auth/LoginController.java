@@ -1,7 +1,8 @@
 package com.swamy.microservice.basics.auth;
 
+
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ import com.swamy.microservice.basics.models.UserResponse;
 import com.swamy.microservice.basics.repos.UserRepo;
 
 @RestController
-@CrossOrigin(allowedHeaders = "*",origins = "http://localhost:4200")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class LoginController {
 
 	@Autowired
@@ -49,8 +50,9 @@ public class LoginController {
 	public ResponseEntity<?> loginToken(@RequestBody JwtAuthRequest auth) throws Exception {
 
 		try {
+
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-					auth.getEmail(), auth.getPassword(), new ArrayList<>());
+					auth.getEmail(), auth.getPassword(), new ArrayList());
 			authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 		} catch (BadCredentialsException e) {
 			throw new Exception("invalid username/Email..");
@@ -83,5 +85,4 @@ public class LoginController {
 		return  user != null ? true : false;
 	}
 	
-
 }
