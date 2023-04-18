@@ -44,6 +44,11 @@ public class AuthFilter implements Filter {
 		final String authorizationHeader = httpRequest.getHeader("Authorization");
 		System.err.println("movie-ms-filter auth 2 filter ..."+ authorizationHeader);
 		if (authorizationHeader == null) {
+			if(authorizationHeader == null && (httpRequest.getRequestURI().contains("api-docs") ||httpRequest.getRequestURI().contains("swagger")  )) {
+				System.err.println(httpRequest.getRequestURI());
+				chain.doFilter(httpRequest, httpResponse);
+
+			}
 			httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
 			LocalDateTime current = LocalDateTime.now();
 			data.put("timestamp", current.toString());
@@ -60,8 +65,11 @@ public class AuthFilter implements Filter {
 				data.put("exception", "Invalid credentials");
 				httpResponse.getOutputStream().println(objectMapper.writeValueAsString(data));
 				return;
-			}else {
+			}
+			
+			else {
 				System.out.println(" Movie-ms-filter user authenticated >> "+ validateUserCreds);
+				
 				chain.doFilter(httpRequest, httpResponse);
 			}
 			

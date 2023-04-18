@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ApiGatewayServiceApplication",
+            "request": "launch",
+            "mainClass": "com.microservies4.apigatewayservice.ApiGatewayServiceApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-DiscoveryServiceApplication<discovery-service>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
@@ -27,6 +34,16 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "com.swamy.microservice2.basics.MovieReviewServiceApplication",
             "projectName": "movie-review-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ApiGatewayServiceApplication<api-gateway-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.microservies4.apigatewayservice.ApiGatewayServiceApplication",
+            "projectName": "api-gateway-service",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }

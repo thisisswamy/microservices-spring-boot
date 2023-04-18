@@ -25,6 +25,10 @@ import com.swamy.microservice2.basics.models.ReviewResponse;
 import com.swamy.microservice2.basics.models.UserInfo;
 import com.swamy.microservice2.basics.service.ReviewService;
 
+import io.swagger.annotations.Api;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 //@CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
 @RestController
 public class MovieController {
